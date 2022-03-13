@@ -1,9 +1,12 @@
+import json
 from django.shortcuts import render
 from rest_framework_simplejwt.views import TokenObtainPairView
 from rest_framework.response import Response
-from rest_framework import status,permissions
-from .serializers import CustomUserSerializer, MyTokenObtainPairSerializer
+from rest_framework import status,permissions,viewsets
+
+from .serializers import CustomUserSerializer, ExtraHourSerializer, MyTokenObtainPairSerializer
 from rest_framework.views import APIView
+from .models import CustomUser, ExtraHour
 
 # Create your views here.
 class ObtainTokenPairWithColorView(TokenObtainPairView):
@@ -27,3 +30,22 @@ class CustomUserCreate(APIView):
 class HelloWorldView(APIView):
     def get(self,request):
         return Response(data={'Hello': 'World'}, status=status.HTTP_200_OK)
+
+
+class ExtraHourView(APIView):
+    queryset = ExtraHour.objects.all()
+    serializer_class = ExtraHourSerializer
+    
+    def get(self, request):
+        extra_hours = ExtraHour.objects.all()
+        serializer = ExtraHourSerializer(extra_hours, many=True)
+        return Response(serializer.data)
+
+    def post(self, request):
+        form = ExtraHourSerializer(data=request.data)
+
+        if form.is_valid(): 
+            if request.method == 'POST':
+                form.save()
+                return Response(form.data, status=status.HTTP_201_CREATED)
+                

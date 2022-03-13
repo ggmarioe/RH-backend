@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import CustomUser
+from .models import CustomUser, ExtraHour, ExtraHourHistory
 
 # Register your models here.
 class CustomUserAdmin(admin.ModelAdmin):
@@ -7,3 +7,5 @@ class CustomUserAdmin(admin.ModelAdmin):
     list_display = ('username', 'email', 'is_staff')
 
 admin.site.register(CustomUser,CustomUserAdmin)
+admin.site.register(ExtraHour)
+admin.site.register(ExtraHourHistory)

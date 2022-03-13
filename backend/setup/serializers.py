@@ -1,7 +1,7 @@
 from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
 from rest_framework import serializers
 
-from .models import CustomUser
+from .models import CustomUser, ExtraHour
 
 class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
 
@@ -34,4 +34,16 @@ class CustomUserSerializer(serializers.ModelSerializer):
             instance.set_password(password)
         instance.save()
         return instance
+
+
+class ExtraHourSerializer(serializers.ModelSerializer):
+    """
+    Serializer for the ExtraHour model.
+    """
+    class Meta:
+        model = ExtraHour
+        fields = ['user', 'hours', 'date','description', 'status', 'created_at', 'updated_at']
+    
+
+        
 
