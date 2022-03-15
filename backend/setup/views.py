@@ -1,5 +1,5 @@
 import json
-from logging import exception
+
 from urllib.robotparser import RequestRate
 from django.http import JsonResponse
 from django.shortcuts import render
@@ -8,9 +8,11 @@ from rest_framework.response import Response
 from rest_framework_simplejwt.views import TokenObtainPairView
 from rest_framework import status,permissions,viewsets, decorators
 
-from .models import CustomUser, ExtraHour
+from .models.custom_user import CustomUser
+from .models.extra_hour import ExtraHour
 from .serializers import CustomUserSerializer, ExtraHourSerializer, MyTokenObtainPairSerializer
 
+# from .views.extra_hour_view import ExtraHourView
 
 # Create your views here.
 class ObtainTokenPairWithColorView(TokenObtainPairView):
@@ -59,7 +61,7 @@ class ExtraHourView(APIView):
             # caso de excecpión cuando no viene data
             return JsonResponse(serializer.data, safe=False)
 
-    
+
     # Save extra hour
     def post(self, request):
         form = ExtraHourSerializer(data=request.data)
@@ -86,7 +88,6 @@ class ExtraHourView(APIView):
 
 
     def extra_hour_by_username(request, username):
-        
         user = CustomUser.objects.get(username=username)
         result = ExtraHour.objects.all().filter(user = user.id)
         serializer = ExtraHourSerializer(result, many=True)

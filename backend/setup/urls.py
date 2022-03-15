@@ -1,7 +1,5 @@
 from django.urls import path
 from rest_framework_simplejwt import views as jwt_views
-
-
 #from backend.setup.views import CustomUserCreate
 from setup.views import CustomUserCreate,HelloWorldView, ExtraHourView
 

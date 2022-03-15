@@ -1,7 +1,10 @@
 from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
 from rest_framework import serializers
 
-from .models import CustomUser, ExtraHour
+# from .models import CustomUser, ExtraHour
+from .models.custom_user import CustomUser
+from .models.extra_hour import ExtraHour
+
 
 class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
 
