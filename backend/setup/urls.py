@@ -11,4 +11,6 @@ urlpatterns = [
     path('token/refresh/', jwt_views.TokenRefreshView.as_view(), name='token_refresh'),
     path('hello/', HelloWorldView.as_view(), name='hello_world'),
     path('extra-hour/',ExtraHourView.as_view(), name='extra-hour'),
+    # path('extra-hour/',ExtraHourView.as_view(), name='extra-hour'),
+    path('extra-hour/<int:id>/',ExtraHourView.as_view(), name='get_by_id'),
 ]

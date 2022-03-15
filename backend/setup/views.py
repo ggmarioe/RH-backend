@@ -1,4 +1,5 @@
 import json
+from urllib.robotparser import RequestRate
 from django.shortcuts import render
 from rest_framework_simplejwt.views import TokenObtainPairView
 from rest_framework.response import Response
@@ -36,11 +37,20 @@ class ExtraHourView(APIView):
     queryset = ExtraHour.objects.all()
     serializer_class = ExtraHourSerializer
     
+    # Get all extra hours
     def get(self, request):
         extra_hours = ExtraHour.objects.all()
         serializer = ExtraHourSerializer(extra_hours, many=True)
         return Response(serializer.data)
 
+    # Get extra hours by id
+    def get(self, request, *args, **kwargs):
+        request_id = self.kwargs.get('id')
+        extra_hour = ExtraHour.objects.get(id=request_id)
+        serializer = ExtraHourSerializer(extra_hour)
+        return Response(serializer.data)
+
+    # Save extra hour
     def post(self, request):
         form = ExtraHourSerializer(data=request.data)
 
