@@ -1,7 +1,9 @@
 from django.urls import path
 from rest_framework_simplejwt import views as jwt_views
-#from backend.setup.views import CustomUserCreate
-from setup.views import CustomUserCreate,HelloWorldView, ExtraHourView
+
+from .views.custom_user import CustomUserCreate
+from .views.hello_world_view import HelloWorldView
+from .views.extra_hour_view import ExtraHourView
 
 urlpatterns = [
     path('user/create/', CustomUserCreate.as_view(), name="create_user"),
