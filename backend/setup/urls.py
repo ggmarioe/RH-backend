@@ -13,4 +13,5 @@ urlpatterns = [
     path('extra-hour/',ExtraHourView.as_view(), name='extra-hour'),
     # path('extra-hour/',ExtraHourView.as_view(), name='extra-hour'),
     path('extra-hour/<int:id>/',ExtraHourView.extra_hour_detail, name='extra-hour-detail'),
+    path('extra-hour/<str:username>/',ExtraHourView.extra_hour_by_username, name='extra-hour-by-username'),
 ]
