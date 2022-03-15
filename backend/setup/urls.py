@@ -12,5 +12,5 @@ urlpatterns = [
     path('hello/', HelloWorldView.as_view(), name='hello_world'),
     path('extra-hour/',ExtraHourView.as_view(), name='extra-hour'),
     # path('extra-hour/',ExtraHourView.as_view(), name='extra-hour'),
-    path('extra-hour/<int:id>/',ExtraHourView.as_view(), name='get_by_id'),
+    path('extra-hour/<int:id>/',ExtraHourView.extra_hour_detail, name='extra-hour-detail'),
 ]

@@ -62,7 +62,3 @@ class ExtraHourHistory(models.Model):
     date = models.DateField()
     action = models.CharField(max_length=200)
     user = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
-
-    
-
-
