@@ -11,7 +11,9 @@ urlpatterns = [
     path('token/refresh/', jwt_views.TokenRefreshView.as_view(), name='token_refresh'),
     path('hello/', HelloWorldView.as_view(), name='hello_world'),
     path('extra-hour/',ExtraHourView.as_view(), name='extra-hour'),
+    path('extra-hour/<int:id>',ExtraHourView.as_view(), name='extra-hour-id'),
     # path('extra-hour/',ExtraHourView.as_view(), name='extra-hour'),
-    path('extra-hour/<int:id>/',ExtraHourView.extra_hour_detail, name='extra-hour-detail'),
-    path('extra-hour/<str:username>/',ExtraHourView.extra_hour_by_username, name='extra-hour-by-username'),
+    # path('extra-hour/<int:id>/',ExtraHourView.extra_hour_detail, name='extra-hour-detail'),
+    # path('extra-hour/<str:username>/',ExtraHourView.extra_hour_by_username, name='extra-hour-by-username'),
+
 ]

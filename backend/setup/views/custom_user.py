@@ -5,7 +5,7 @@ from rest_framework import status, permissions
 from ..serializers import CustomUserSerializer
 
 class CustomUserCreate(APIView):
-    permission_classes = (permissions.AllowAny,)
+    permission_classes = (permissions.IsAdminUser,)
 
     def post(self, request, format='json'):
         serializer = CustomUserSerializer(data=request.data)
