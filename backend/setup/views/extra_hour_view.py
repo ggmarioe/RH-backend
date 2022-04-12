@@ -14,12 +14,9 @@ class ExtraHourView(APIView):
     permission_classes = (IsAuthenticated,)
     serializer_class = ExtraHourSerializer
     
-    # Get all extra hours
-    # def get(self, request):
-    #     extra_hours = ExtraHour.objects.all()
-    #     serializer = ExtraHourSerializer(extra_hours, many=True)
-    #     return Response(serializer.data)
-
+    # get the extra hour 
+    # if any params are added it will return the extra hour with the params
+    # if no params are added it will return all the extra hours
     def get(self,request, *args, **kwargs):
         id = request.query_params.get('id')
 
@@ -33,23 +30,15 @@ class ExtraHourView(APIView):
         serializer = ExtraHourSerializer(extra_hours, many=True)
         return Response(serializer.data)
 
-    # Get extra hours by id
-    def extra_hour_detail(request, id):
-        # result = ExtraHour.objects.all().filter(id = id)
-        result = ExtraHour.objects.get(id = id)
-        serializer = ExtraHourSerializer(result, many=True)
-        return Response(serializer.data, status=status.HTTP_200_OK)
-        # devolver el primer registro por defecto 
-        # if len(result) > 0: 
-        #     return JsonResponse(serializer.data[0], safe=False)
-        # else: 
-        #     # caso de excecpión cuando no viene data
-        #     return JsonResponse(serializer.data, safe=False)
-
 
     # Save extra hour
     def post(self, request):
         form = ExtraHourSerializer(data=request.data)
+
+        if not form.is_valid():
+            print(request.data)
+            return Response(form.errors, status=status.HTTP_400_BAD_REQUEST)
+
         if form.is_valid(): 
             if request.method == 'POST':
                 form.save()
@@ -70,14 +59,7 @@ class ExtraHourView(APIView):
             if request.method == 'PUT':
                 form.save()
                 return Response(form.data, status=status.HTTP_200_OK)
-
     
-    def extra_hour_by_username(request, username):
-
-        user = CustomUser.objects.get(username=username)
-        result = ExtraHour.objects.all().filter(user = user.id)
-        serializer = ExtraHourSerializer(result, many=True)
-        return JsonResponse(serializer.data, safe=False, status=status.HTTP_200_OK)
 
     def delete(self, request):
         form = ExtraHourSerializer(data= request.data)
